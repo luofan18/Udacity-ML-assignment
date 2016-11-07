@@ -14502,7 +14502,7 @@ Make sure to keep track of the various features and conditions you tried before 
         
         <span class="c1"># Remove the &#39;pass&#39; statement below </span>
         <span class="c1"># and write your prediction conditions here</span>
-        <span class="n">predictions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">passenger</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;female&#39;</span> <span class="ow">and</span> <span class="n">passenger</span><span class="p">[</span><span class="s1">&#39;Parch&#39;</span><span class="p">]</span><span class="o">&lt;=</span><span class="mi">3</span> <span class="ow">and</span> 
+           <span class="n">predictions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">passenger</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;female&#39;</span> <span class="ow">and</span> <span class="n">passenger</span><span class="p">[</span><span class="s1">&#39;Parch&#39;</span><span class="p">]</span><span class="o">&lt;=</span><span class="mi">3</span> <span class="ow">and</span> 
                            <span class="n">passenger</span><span class="p">[</span><span class="s1">&#39;SibSp&#39;</span><span class="p">]</span><span class="o">&lt;=</span><span class="mi">2</span><span class="p">)</span> <span class="ow">or</span> 
                            <span class="p">(</span><span class="n">passenger</span><span class="p">[</span><span class="s1">&#39;Sex&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;male&#39;</span> <span class="ow">and</span> 
                             <span class="p">(</span><span class="n">passenger</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">10</span> <span class="p">)))</span>
@@ -14562,7 +14562,14 @@ Make sure to keep track of the various features and conditions you tried before 
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer</strong>: <em>Replace this text with your answer to the question above.</em></p>
+<p><strong>Answer</strong>: In the beginning we category all data into men and women and predict all men dead and all women survived. But we should remember that some men survived and some women dead even though the model already gave a good prediction accuracy. How ever, to improve the prediction performance, we should find these persons who are wrongly predicted. Recalling that we still have not touch some feature. We can use these feature to partition the data further. For example, 'Parch' has 3 value '1', '2', '3'.... We draw a figure of survived number and unsurvived number of women for each Parch. The figure showed that for women passengers with 'Parch' value more than 3, more than a half of them died. If we predict all these women died, we were predicting more women with right label than wrong label. In this way, the overall accuracy would be increased. We did this for every feature of women passenger and found more than a half of women with more than 2 'SibSp' died. Then, we did these for men. But this time we were going to find these catogory of men who actually survived but were predicted as dead. So, all the feature we used are,</p>
+<ul>
+<li>female, Parch &lt;=3 and SibSp &lt;=2  </li>
+<li><p>male, Age &lt; 10<br>
+suvived.</p>
+<p>Other died.</p>
+</li>
+</ul>
 
 </div>
 </div>
