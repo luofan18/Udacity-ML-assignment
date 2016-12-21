@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>student_intervention</title>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>student_intervention</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11862,7 +11860,8 @@ div#notebook {
 <span class="n">n_students</span> <span class="o">=</span> <span class="n">row</span>
 
 <span class="c1"># TODO: Calculate number of features</span>
-<span class="n">n_features</span> <span class="o">=</span> <span class="n">col</span> <span class="o">-</span> <span class="mi">2</span>
+<span class="c1"># no need to minus 1</span>
+<span class="n">n_features</span> <span class="o">=</span> <span class="n">col</span>
 
 <span class="c1"># TODO: Calculate passing students</span>
 <span class="n">n_passed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">student_data</span><span class="p">[</span><span class="s1">&#39;passed&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;yes&#39;</span><span class="p">)</span>
@@ -11892,7 +11891,7 @@ div#notebook {
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Total number of students: 395
-Number of features: 29
+Number of features: 31
 Number of students who passed: 265
 Number of students who failed: 130
 Graduation rate of the class: 67.09%
@@ -12354,7 +12353,8 @@ Testing set has 95 samples.
 <span class="c1"># TODO: Initialize the three models</span>
 <span class="n">clf_A</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
 <span class="n">clf_B</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
-<span class="n">clf_C</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">()</span>
+<span class="c1"># adding random_state to RandomForestClassifier</span>
+<span class="n">clf_C</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="c1"># TODO: Set up the training set sizes</span>
 <span class="n">X_train_100</span> <span class="o">=</span> <span class="bp">None</span>
@@ -12617,7 +12617,8 @@ F1 score for test set: 0.7597.
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
-<p>The logistic regression predict the probability that a student will drop according to the information we have. If the probability is large than 0.5. The model predict that student will drop. Each information we have add or decrease the probability that student will drop. Train the model is choosing the proper weight for different feature for prediction.</p>
+<p>The logistic regression predict the probability that a student will drop according to the information we have. If the probability is large than 0.5. The model predict that student will drop. Each information we have add or decrease the probability that student will drop.</p>
+<p>Training model is selecting the proper weight for each feature and ask how much does this feature decide whether a student will drop. There does not exist solution that can give exact solution. However, we have some numerical method to get approximate solution. But the intuitive explain is that importance feature which has high relevence to prediction will be assigned large weight and less important feature will be assigned small weigh. The feature which are positively relavant to the prediction are assigned positive weight and nagetively relevant to the prediction are assigned negative weight. Positive relevance in our case means if the feature appears, the student are more likely to fail. After training the model, we can use thoes weight to make prediction on new data.</p>
 
 </div>
 </div>
@@ -12736,4 +12737,8 @@ Tuned model has a testing F1 score of 0.7914.
     </div>
   </div>
 </body>
+
+ 
+
+
 </html>
