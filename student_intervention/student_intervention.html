@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>student_intervention</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>student_intervention</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -12266,7 +12268,7 @@ Testing set has 95 samples.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">train_classifier</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span>
@@ -12339,7 +12341,7 @@ Testing set has 95 samples.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Import the three supervised learning models from sklearn</span>
@@ -12351,10 +12353,10 @@ Testing set has 95 samples.
 <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
 
 <span class="c1"># TODO: Initialize the three models</span>
-<span class="n">clf_A</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="n">clf_A</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">clf_B</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
 <span class="c1"># adding random_state to RandomForestClassifier</span>
-<span class="n">clf_C</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">clf_C</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="c1"># TODO: Set up the training set sizes</span>
 <span class="n">X_train_100</span> <span class="o">=</span> <span class="bp">None</span>
@@ -12387,34 +12389,34 @@ Testing set has 95 samples.
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Training a LogisticRegression using a training set size of 100. . .
-Trained model in 0.0010 seconds
-Made predictions in 0.0010 seconds.
+Trained model in 0.0040 seconds
+Made predictions in 0.0050 seconds.
 F1 score for training set: 0.8980.
-Made predictions in 0.0000 seconds.
+Made predictions in 0.0010 seconds.
 F1 score for test set: 0.7391.
 Training a LogisticRegression using a training set size of 200. . .
 Trained model in 0.0030 seconds
-Made predictions in 0.0000 seconds.
+Made predictions in 0.0010 seconds.
 F1 score for training set: 0.8647.
 Made predictions in 0.0000 seconds.
 F1 score for test set: 0.7883.
 Training a LogisticRegression using a training set size of 300. . .
-Trained model in 0.0040 seconds
+Trained model in 0.0050 seconds
 Made predictions in 0.0010 seconds.
 F1 score for training set: 0.8381.
 Made predictions in 0.0000 seconds.
 F1 score for test set: 0.7910.
 Training a GaussianNB using a training set size of 100. . .
-Trained model in 0.0020 seconds
+Trained model in 0.0000 seconds
 Made predictions in 0.0000 seconds.
 F1 score for training set: 0.7692.
-Made predictions in 0.0010 seconds.
+Made predictions in 0.0000 seconds.
 F1 score for test set: 0.7402.
 Training a GaussianNB using a training set size of 200. . .
 Trained model in 0.0010 seconds
-Made predictions in 0.0000 seconds.
-F1 score for training set: 0.7833.
 Made predictions in 0.0010 seconds.
+F1 score for training set: 0.7833.
+Made predictions in 0.0000 seconds.
 F1 score for test set: 0.7313.
 Training a GaussianNB using a training set size of 300. . .
 Trained model in 0.0010 seconds
@@ -12423,23 +12425,23 @@ F1 score for training set: 0.8088.
 Made predictions in 0.0000 seconds.
 F1 score for test set: 0.7500.
 Training a RandomForestClassifier using a training set size of 100. . .
-Trained model in 0.0160 seconds
+Trained model in 0.0180 seconds
 Made predictions in 0.0010 seconds.
 F1 score for training set: 1.0000.
 Made predictions in 0.0010 seconds.
-F1 score for test set: 0.7068.
+F1 score for test set: 0.6833.
 Training a RandomForestClassifier using a training set size of 200. . .
-Trained model in 0.0150 seconds
-Made predictions in 0.0010 seconds.
-F1 score for training set: 1.0000.
-Made predictions in 0.0010 seconds.
-F1 score for test set: 0.6719.
-Training a RandomForestClassifier using a training set size of 300. . .
-Trained model in 0.0120 seconds
+Trained model in 0.0180 seconds
 Made predictions in 0.0000 seconds.
-F1 score for training set: 0.9951.
-Made predictions in 0.0160 seconds.
-F1 score for test set: 0.7597.
+F1 score for training set: 0.9890.
+Made predictions in 0.0000 seconds.
+F1 score for test set: 0.7077.
+Training a RandomForestClassifier using a training set size of 300. . .
+Trained model in 0.0230 seconds
+Made predictions in 0.0010 seconds.
+F1 score for training set: 0.9976.
+Made predictions in 0.0010 seconds.
+F1 score for test set: 0.7344.
 </pre>
 </div>
 </div>
@@ -12478,15 +12480,15 @@ F1 score for test set: 0.7597.
 <td style="text-align:center">100</td>
 <td style="text-align:center">0.0020</td>
 <td style="text-align:center">0.0000</td>
-<td style="text-align:center">0.8957</td>
-<td style="text-align:center">0.7586</td>
+<td style="text-align:center">0.8980</td>
+<td style="text-align:center">0.7391</td>
 </tr>
 <tr>
 <td style="text-align:center">200</td>
 <td style="text-align:center">0.0030</td>
 <td style="text-align:center">0.0000</td>
-<td style="text-align:center">0.8544</td>
-<td style="text-align:center">0.7801</td>
+<td style="text-align:center">0.8647</td>
+<td style="text-align:center">0.7883</td>
 </tr>
 <tr>
 <td style="text-align:center">300</td>
@@ -12546,22 +12548,22 @@ F1 score for test set: 0.7597.
 <td style="text-align:center">100</td>
 <td style="text-align:center">0.0150</td>
 <td style="text-align:center">0.0010</td>
-<td style="text-align:center">0.9935</td>
-<td style="text-align:center">0.7917</td>
+<td style="text-align:center">1.0000</td>
+<td style="text-align:center">0.6833</td>
 </tr>
 <tr>
 <td style="text-align:center">200</td>
 <td style="text-align:center">0.0150</td>
 <td style="text-align:center">0.0010</td>
-<td style="text-align:center">1.0000</td>
-<td style="text-align:center">0.7755</td>
+<td style="text-align:center">0.9890</td>
+<td style="text-align:center">0.7077</td>
 </tr>
 <tr>
 <td style="text-align:center">300</td>
 <td style="text-align:center">0.0120</td>
 <td style="text-align:center">0.0000</td>
-<td style="text-align:center">0.9951</td>
-<td style="text-align:center">0.6818</td>
+<td style="text-align:center">0.9976</td>
+<td style="text-align:center">0.7344</td>
 </tr>
 </tbody>
 </table>
@@ -12737,8 +12739,4 @@ Tuned model has a testing F1 score of 0.7914.
     </div>
   </div>
 </body>
-
- 
-
-
 </html>
