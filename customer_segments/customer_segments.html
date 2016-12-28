@@ -21931,6 +21931,8 @@ AABEBhUgAAAAAJFBAgQAAAAgMkiAAAAAAEQGCRAAAACAyCABAgAAABAZJEAAAAAAIoMECAAAAEBk
 <span class="n">display</span><span class="p">(</span><span class="n">samples</span><span class="o">.</span><span class="n">values</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">true_centers</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Segment 1&#39;</span><span class="p">,:]</span><span class="o">.</span><span class="n">values</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
 <span class="k">print</span> <span class="s1">&#39;distance to Segment 2&#39;</span>
 <span class="n">display</span><span class="p">(</span><span class="n">samples</span><span class="o">.</span><span class="n">values</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">true_centers</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Segment 2&#39;</span><span class="p">,:]</span><span class="o">.</span><span class="n">values</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
+
+<span class="n">display</span> 
 </pre></div>
 
 </div>
@@ -22122,7 +22124,7 @@ Sample point 1 predicted to be in Cluster 0
 Sample point 2 predicted to be in Cluster 1
 
 </code></pre>
-<p>For the sample[0], it is predicted to be in cluster 0. From the stastic we can see it is quiet reasonable.</p>
+<p>For the sample[0], it is predicted to be in cluster 0. From the stastic we can see it is quiet reasonable. It is most nearest to segment 1.</p>
 <p>For the sample[1], it is predicted to be in cluster 1. From the stastic we can sse that it seems to lay between cluster 0 and cluster 1. The result is acceptable.</p>
 <p>For the sample[2], it is predicted to be in cluster 2. From the stastic we can see that it seems to lay between cluster 1 and 2.</p>
 
