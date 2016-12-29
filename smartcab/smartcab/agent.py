@@ -27,6 +27,7 @@ class LearningAgent(Agent):
         self.all_actions = ['forward','left','right',None]
         self.testing = False
         self.train_trial = 0
+        self.debug = True
 	
     def reset(self, destination=None, testing=False):
         """ The reset function is called at the beginning of each trial.
@@ -44,7 +45,7 @@ class LearningAgent(Agent):
         # If 'testing' is True, set epsilon and alpha to 0
         self.testing = testing
         self.train_trial += 1
-        self.epsilon = self._get_epsilon(decay='inverse linear')
+        self.epsilon = self._get_epsilon(decay='improved linear')
         if testing == True:
             self.epsilon = 0
             self.alpha = 0
@@ -54,6 +55,8 @@ class LearningAgent(Agent):
     def _get_epsilon(self, decay='linear'):
         if decay == 'linear':
             return 1.05 - self.train_trial * 0.05
+        if decay == 'improved linear':
+            return 1.02 - self.train_trial * 0.02
         if decay == 'inverse linear':
             return 1.0/self.train_trial
         if decay == 'inverse square':
@@ -98,6 +101,13 @@ class LearningAgent(Agent):
         # Calculate the maximum Q-value of all actions for a given state
 
         maxQ = max(self.Q[state], key = self.Q[state].get)
+        maxQ = [key for key in self.Q[state].keys() if self.Q[state][key]==self.Q[state][maxQ]]
+        
+        # break tie by random choose one of the best action
+        if len(maxQ) > 1:
+            maxQ = random.choice(maxQ)
+        else:
+            maxQ = max(self.Q[state], key = self.Q[state].get)
         print 'get_maxQ'
         print self.Q[state]
         print maxQ
@@ -145,20 +155,23 @@ class LearningAgent(Agent):
         else:
             if self.testing == False:
                 action = self.get_maxQ(state)
-                print 'state'
-                print state
-                print 'maxQ'
-                print action
                 random_value = random.random()
-                print 'random_value'
-                print random_value
-                print 'self.epsilon'
-                print self.epsilon
+                
+                if self.debug == True:
+                    print 'state'
+                    print state
+                    print 'maxQ'
+                    print action
+                    print 'random_value'
+                    print random_value
+                    print 'self.epsilon'
+                    print self.epsilon
                 
                 if random_value < self.epsilon:
-                    available_actions = list(self.all_actions)
-                    available_actions.remove(action)
-                    action = random.choice(available_actions)
+                    if self.debug == True:
+                        print 'available_actions'
+                        print self.all_actions
+                    action = random.choice(self.all_actions)
                 
                 print 'action'
                 print action
@@ -239,7 +252,7 @@ def run():
     # Flags:
     #   tolerance  - epsilon tolerance before beginning testing, default is 0.05 
     #   n_test     - discrete number of testing trials to perform, default is 0
-    sim.run(n_test = 10, tolerance = 0.1)
+    sim.run(n_test = 10, tolerance = 0.02)
 
 
 if __name__ == '__main__':
