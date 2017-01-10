@@ -11863,7 +11863,7 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
 <p>The smart cab do not move during the whole simulation.</p>
-<p>The reward is: if the agent does not move in the green light with no incoming traffic, it will be punished; if the light is green and there are no oncoming traffic to the left it will be punished; if the; in other case the agent will receive a random reward between (-1,1)</p>
+<p>The reward is: if the agent does drive forward when the light is red, it is punished; if the agent wants to drive left and the lighe is red or the oncoming traffic is approaching its right, it will be punished. If the agent wants to drive right and there is traffic in left atampt to cross the intersection, it will be punished. if the light is green and there is not oncoming traffic turning left is will be punished. Finally, a random reward between (-1, +1) will be added generate ultimate reward.</p>
 <p>we can also see that other car act properly and sometime it suddenly disappear.</p>
 
 </div>
@@ -11902,11 +11902,11 @@ div#notebook {
 <p><strong>Answer:</strong></p>
 <p>In <code>agent.py</code> file, there are</p>
 <ul>
-<li><p><code>number_dummies</code> in <code>Environment</code>: affect the number of other vihicles in the world, the maximum value is 192. Seems for each intersection can hold at most 4 cars and we get 8 X 6 X 4 = 192 in all</p>
+<li><p><code>number_dummies</code> in <code>Environment</code>: affect the number of other vihicles in the world, the maximum value is 192. Seems for each intersection can hold at most 4 cars and we get 8 X 6 X 4 = 192 in all. Intuitively, if <code>number_dummies</code> = 0, there is no other car in the world. The only thing to consider is the light. It will be very easy for the agent to learn. If <code>number_dummies</code> is a small value, it means there is not much traffic but also means some complex situations are less likely to occur. Comparing to <code>number_dummies</code> is the maximum value, heavy traffic and frequent occuring complex situation, there seem to be a value in between that is hardest for the agent to learn.</p>
 </li>
-<li><p><code>grid_size</code> in <code>Environment</code>: affact the number of intersections in each row and each column. More intersections means we have more states to estimation. I think the states to be estimated grows linearly when number of total intersections grows.</p>
+<li><p><code>grid_size</code> in <code>Environment</code>: affact the number of intersections in each row and each column. If the agent are trained to nevigate itself, then more intersection means larger state space. However, in our case, it has no influence on state space.</p>
 </li>
-<li><p><code>enforce_deadline</code> in <code>env.set_primary_agent</code>: if no dead line, then the whole navigating decision process is stationary. if a dead line is imposed, the navigating process is not stationary. Interested to see the result.</p>
+<li><p><code>enforce_deadline</code> in <code>env.set_primary_agent</code>: if no dead line, each trial will end up in at most 100 step. If set to true, the dead line will be calculated according to the distance between out smart cab and destination.</p>
 </li>
 </ul>
 <p><code>environment.act()</code> is called whrn an agent performs an action. The environment first retrive the agent's action and then generate a reward to the agent.</p>
@@ -13063,7 +13063,7 @@ Qw5ZZmZmZmZmNeSQZWZmZmZmVkP/BzWddJ/gHyEcAAAAAElFTkSuQmCC
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
 <p>Total bad action frequency for randomly driving is around 0.38. This value is very high, which means more than one third action are bad actions. Around 0.1 of all actions or a quarter of bad action result in accident.</p>
-<p>The rate of reliability make no sence because as we see the agent caused a lot of accident. It too early to talk about reliability.</p>
+<p>The rate of reliability make sence because as we expected, the random agent caused a lot of accidents.</p>
 <p>On average, the agent is always receiving negetive reward. It suggest that the agent has been penalized heavily.</p>
 <p>In the figure we observe that the outcome of result become worse slightly. As we know the car is randomly driving, we now in fact its outcome of results do not change.</p>
 <p>This smart cab is not safe at all. It frequently cause accident and it is not reliable.</p>
@@ -13120,7 +13120,8 @@ Qw5ZZmZmZmZmNeSQZWZmZmZmVkP/BzWddJ/gHyEcAAAAAElFTkSuQmCC
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
 <p>The most relavent feature is <code>waypoint</code>, <code>inputs</code> which include <code>light</code>, <code>left</code>, <code>oncoming</code>. <code>waypoint</code> is to describe the best possible action the agent should take, which is relevant to <em>efficiency</em>. <code>input</code> acounts for <em>safety</em> of the agent.</p>
-<p>I do not choose <code>deadline</code> because each value of the remained time will only appear once and it is not learnable. I do not choose right because it is not relevant to the correct behaviours of the agent. <code>oncoming</code> are important because we should consider it when we intend to turn left and the light is green. I exclude the <code>left</code> because the situation is rare and we already have to many features to include.</p>
+<p>I do not choose <code>deadline</code> because each value of the remained time will only appear once and it is not easy to learn. I do not choose right because it is not relevant to the correct behaviours of the agent. If the light is green, in most case we can take any direction. However, it is illegal to turn left if oncoming traffic want to turn right or go forward. It does not say that we should take the traffic in left into consideration. If the light is red, in most case it should wait for the light. But it can turn right if no traffic on the left intending to go forward. There is no need to know what is happening in ideal case. In all, we do not need to consider <code>right</code>.</p>
+<p><code>oncoming</code> are important because we should consider it when we intend to turn left and the light is green. I exclude the <code>left</code> because the situation is rare and we already have to many features to include.</p>
 <p>In fact, if we add 1 more feature, the state number is 24 X 4 = 96. with 4 action we can take in each state, we actual have a Q table of 96 X 4 = 384 records. for each record at least we should expirence several times to get correct Q value. Assume 5, then the agent should pass at least 1920 intersections. This is a huge number. Assuming each trial include 50 steps, at least 40 train trials should be performed. The problem is that the explore rate might have already decrease to 0 in early training trials.</p>
 
 </div>
@@ -13158,8 +13159,8 @@ Qw5ZZmZmZmZmNeSQZWZmZmZmVkP/BzWddJ/gHyEcAAAAAElFTkSuQmCC
 <p>calculate the size of the state space</p>
 <ul>
 <li>number of <code>waypoint</code> is 3</li>
-<li><code>light</code>, include two state <code>NS open</code>, <code>EW open</code></li>
-<li><code>left</code>, <code>oncoming</code>, each include 4 state</li>
+<li><code>light</code>, includes two state <code>red</code>, <code>green</code></li>
+<li><code>oncoming</code>, includes 4 state</li>
 </ul>
 <p>Total number of state is 3 X 2 X 4 = 24. In my view, with enough train trials, the car can eventually learn act correctly.</p>
 
@@ -16013,7 +16014,7 @@ MzMzMzOzHLnIMjMzMzMzy9H/Aw0l2yxL7KlYAAAAAElFTkSuQmCC
  -- right : -1.28
  -- None : 1.81
  -- left : -11.62</p>
-<p>it is not correct as we can turn right at this situation.</p>
+<p>it is correct when we do not know the traffic on the left.</p>
 <p>('left', 'red', 'right')
  -- forward : -7.30
  -- right : 0.45
@@ -16026,6 +16027,13 @@ MzMzMzOzHLnIMjMzMzMzy9H/Aw0l2yxL7KlYAAAAAElFTkSuQmCC
  -- None : 0.00
  -- left : -14.79</p>
 <p>This is correct.</p>
+<p>('left', 'green', 'forward')
+ -- forward : 0.82
+ -- right : 1.40
+ -- None : -4.64
+ -- left : -19.32</p>
+<p>This is not a optimal action because in this situation the agent will choose right however the best action in None.</p>
+<p>In all, in all 24 state, there are 3 state where the agent will show bad behavior. But in general, in most states, the agent can behave correctly.</p>
 
 </div>
 </div>
