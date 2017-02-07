@@ -1,4 +1,5 @@
 # Udacity-ML-assignment
 This repository is for submitting assignment of Udacity
 
-A brief of syllabus at https://renatocunha.com/blog/2015/11/a-review-of-udacitys-machine-learning-engineer-nanodegree/
+A brief of syllabus at https://renatocunha.com/blog/2015/11/a-review-of-udacitys-machine-learning-engineer-nanodegree/  
+or https://www.udacity.com/course/machine-learning-engineer-nanodegree--nd009
